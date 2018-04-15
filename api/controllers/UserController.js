@@ -6,16 +6,14 @@
 
 const db = require('../models')
 const User = db.User
-const { isEmail } = require('../services/HelperService')
 const { customError, error, json } = require('../services/ResponseService')
 const { verifyBvn } = require('../services/PaystackService')
 const { to } = require('../services/HelperService')
 
 const validateObj = (data) => {
   if (!data.phone) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { phone: 'Phone Number Is Required.' } } }
-  if (data.phone.length < 11) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { phone: 'Phone Number Is can neither be lesser nor greater than 11.' } } }
+  if (data.phone.length < 11 || data.phone.length > 11) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { phone: 'Phone Number can neither be lesser nor greater than 11.' } } }
   if (!data.email) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { email: 'Email Is Required.' } } }
-  if (!isEmail(data.email)) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { email: 'Invalid Email.' } } }
   if (!data.passowrd) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { password: 'Password Is Required.' } } }
 
   const payload = {
@@ -35,20 +33,23 @@ const createUser = async (req, res) => {
   const data = req.body
 
   let verifyUser = validateObj(data)
+
+  if (!verifyUser.status) return customError(verifyUser.statusCode, res, req, verifyUser.obj.data, verifyUser.obj.message)
+
   verifyUser = verifyUser.obj
 
   if (verifyUser.bvn) {
     const [verifyError, verifyResponse] = await to(verifyBvn(verifyUser.bvn))
+    // console.log('BVN Error: ', verifyError)
+    console.log('Verify Response: ', verifyResponse)
     if (verifyError || !verifyResponse) return customError(400, res, req, verifyError.error, 'Unable to verify bvn.')
     verifyUser.bvnProvided = true
   }
 
-  if (!verifyUser.status) return customError(verifyUser.statusCode, res, req, verifyUser.obj.data, verifyUser.obj.message)
-
   User.create(verifyUser)
     .then(createdUser => {
       let user = createdUser.toJSON()
-      delete user.passowrd
+      delete user.password
       delete user.bvn
       return json(201, res, req, 'User Created Successfully.', user)
     })
@@ -85,7 +86,7 @@ const viewUser = async (req, res) => {
     .then(foundUser => {
       if (!foundUser) return json(200, res, req, 'User not found.')
       let user = foundUser.toJSON()
-      delete user.passowrd
+      delete user.password
       delete user.bvn
       return json(200, res, req, 'User found successfully.', user)
     })

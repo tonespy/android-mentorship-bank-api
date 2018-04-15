@@ -11,7 +11,9 @@ const paystack = {
 
 const authData = {
   jwtExpiry: 7200,
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  audience: 'android-mentorshipdev.com',
+  issuer: 'Tonespydev'
 }
 
 module.exports = { paystack, authData }
