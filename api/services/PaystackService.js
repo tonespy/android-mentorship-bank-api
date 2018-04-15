@@ -5,14 +5,14 @@
   */
 
 const { paystack } = (process.env.NODE_ENV === 'production') ? require('../../config/env/production') : require('../../config/env/development')
-const paystackHeader = { Authorization: ['Bearer ', paystack.secret_key].join(''), 'Content-Type': 'application/json' }
+const paystackHeader = { Authorization: ['Bearer ', paystack.sk_key].join(''), 'Content-Type': 'application/json' }
 const request = require('request-promise')
 const { to } = require('./HelperService')
 
 const verifyBvn = async (bvn) => {
   let options = {
     method: 'GET',
-    url: `${paystack.resolve_bvn}/${bvn}`,
+    url: `${paystack.resolve_bvn}${bvn}`,
     headers: paystackHeader,
     json: true,
     resolveWithFullResponse: true
