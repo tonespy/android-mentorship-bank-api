@@ -5,10 +5,10 @@ module.exports = {
     logging: false
   },
   test: {
-    username: 'root',
+    username: process.env.PGUSER,
     password: null,
     database: 'mentor_database_test',
-    host: '127.0.0.1',
+    host: process.env.PGHOST,
     dialect: 'postgres',
     logging: false
   },
