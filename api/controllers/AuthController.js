@@ -22,6 +22,7 @@ const login = async (req, res) => {
 
   const finalUser = findUser.toJSON()
 
+  console.log('JWT Expiry: ', authData.jwtExpiry)
   const token = issue({ user: finalUser.id, createdAt: Date(), authoriser: 'Android Mentorship' }, authData.jwtExpiry)
 
   return json(200, res, req, 'User Created Successfully.', { token: token, user: finalUser })
