@@ -20,6 +20,7 @@ const issue = (payload, expirytime, subject) => {
 const verify = (token) => {
   return new Promise(function (resolve, reject) {
     return jwt.verify(token, tokenBuffer, { audience: audience, issuer: issuer }, function (err, decoded) {
+      console.log(Error(`Verify Error ${err}`))
       if (err) return reject(err)
       return resolve(decoded)
     })
