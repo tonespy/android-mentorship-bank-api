@@ -40,8 +40,6 @@ const createUser = async (req, res) => {
 
   if (verifyUser.bvn) {
     const [verifyError, verifyResponse] = await to(verifyBvn(verifyUser.bvn))
-    // console.log('BVN Error: ', verifyError)
-    console.log('Verify Response: ', verifyResponse)
     if (verifyError || !verifyResponse) return customError(400, res, req, verifyError.error, 'Unable to verify bvn.')
     verifyUser.bvnProvided = true
   }
