@@ -10,7 +10,7 @@ const paystack = {
 }
 
 const authData = {
-  jwtExpiry: process.env.JWT_EXPIRY || 7200,
+  jwtExpiry: process.env.JWT_EXPIRY || '4h',
   jwtSecret: process.env.JWT_SECRET,
   audience: 'android-mentorship.com',
   issuer: 'Tonespy'
