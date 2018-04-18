@@ -43,11 +43,11 @@ jobs:
 
       # Wait for Postgres connection to open.
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      - run: echo $DATABASE_TEST_URL
         
       # run db migration
       - run: node_modules/.bin/sequelize db:migrate
+        environment:
+          DATABASE_TEST_URL: "postgres://android-tonespy@localhost:5432/mentor_database_test"
             
       # run tests!
       - run: yarn test
