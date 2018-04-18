@@ -12,15 +12,15 @@ jobs:
           NODE_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: android-tonespy
+          DATABASE_TEST_URL: "postgres://androidtonespy@localhost:5432/mentor-database-test"
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.6.2-alpine
         environment:
-          POSTGRES_USER: android-tonespy
-          POSTGRES_DB: mentor_database_test
+          POSTGRES_USER: androidtonespy
+          POSTGRES_DB: mentor-database-test
           POSTGRES_PASSWORD: ""
-          DATABASE_TEST_URL: "postgres://android-tonespy@localhost:5432/mentor_database_test"
 
     working_directory: ~/repo
 
@@ -43,8 +43,6 @@ jobs:
 
       # Wait for Postgres connection to open.
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-        environment:
-          DATABASE_TEST_URL: postgres://android-tonespy@localhost:5432/mentor_database_test
         
       # run db migration
       - run: node_modules/.bin/sequelize db:migrate
