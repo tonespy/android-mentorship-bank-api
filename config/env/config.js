@@ -5,9 +5,9 @@ module.exports = {
     logging: false
   },
   test: {
-    username: process.env.PGUSER,
-    password: null,
-    database: 'mentor_database_test',
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
     host: process.env.PGHOST,
     dialect: 'postgres',
     logging: false
