@@ -14,7 +14,7 @@ const issue = (payload, expirytime, subject) => {
     subject: subject || 'jwt-auth-token'
   }
   const token = jwt.sign(payload, tokenBuffer, opts)
-  return { uuid: opts.jwtid, token: token }
+  return token
 }
 
 const verify = (token) => {
