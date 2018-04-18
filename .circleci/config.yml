@@ -47,7 +47,7 @@ jobs:
       # run db migration
       - run: node_modules/.bin/sequelize db:migrate
         environment:
-          DATABASE_TEST_URL: "postgres://android-tonespy@localhost:5432/mentor_database_test"
+          DATABASE_TEST_URL: postgres://android-tonespy@localhost:5432/mentor_database_test
             
       # run tests!
       - run: yarn test
