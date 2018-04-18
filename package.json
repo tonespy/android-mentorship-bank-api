@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "start:dev": "nodemon ./bin/www",
-    "test": "nodemon --ext js --watch ./ --exec 'mocha ./test' --delay 1"
+    "test": "nodemon --ext js --watch ./ --exec 'mocha ./test' --delay 1 || true"
   },
   "keywords": [],
   "author": "",
