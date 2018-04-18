@@ -5,10 +5,7 @@ module.exports = {
     logging: false
   },
   test: {
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB,
-    host: process.env.PGHOST,
+    use_env_variable: 'DATABASE_TEST_URL',
     dialect: 'postgres',
     logging: false
   },
