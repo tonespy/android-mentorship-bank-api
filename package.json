@@ -7,7 +7,7 @@
     "start": "nodemon ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "test": "nodemon --ext js --watch ./ --exec 'mocha ./test || true' --delay 1",
-    "herokutest": "nodemon --ext js --watch ./ --exec 'mocha ./test --exit || true' --delay 1"
+    "herokutest": "mocha ./test --exit"
   },
   "keywords": [],
   "author": "",
