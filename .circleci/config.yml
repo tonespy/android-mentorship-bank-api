@@ -12,14 +12,14 @@ jobs:
           NODE_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: android-tonespy
-          DATABASE_TEST_URL: "postgres://androidtonespy@localhost:5432/mentor-database-test"
+          DATABASE_TEST_URL: "postgres://androidtonespy@localhost:5432/mentordatabasetest"
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.6.2-alpine
         environment:
           POSTGRES_USER: androidtonespy
-          POSTGRES_DB: mentor-database-test
+          POSTGRES_DB: mentordatabasetest
           POSTGRES_PASSWORD: ""
 
     working_directory: ~/repo
