@@ -48,4 +48,4 @@ jobs:
       - run: node_modules/.bin/sequelize db:migrate
             
       # run tests!
-      - run: npm test
+      - run: npm run herokutest
