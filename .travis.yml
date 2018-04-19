@@ -1,0 +1,13 @@
+language: node_js
+sudo: required
+node_js:
+  - "stable"
+env:
+  - DATABASE_TEST_URL=postgres://postgres@localhost:5432/mentor-database-test
+addons:
+  postgresql: "9.6"
+script: npm run herokutest
+before_script:
+  - psql -c 'create database mentor-database-test;' -U postgres
+  - npm install -f
+  - node_modules/.bin/sequelize db:migrate
