@@ -1,7 +1,6 @@
 language: node_js
 env:
   - DATABASE_TEST_URL=postgres://postgres@localhost:5432/mentordatabasetest
-  - NODE_ENV=test
 sudo: required
 node_js:
   - "stable"
