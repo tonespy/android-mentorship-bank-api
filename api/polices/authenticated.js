@@ -3,24 +3,23 @@
   * @tonespy
   * Authentication Policy
   */
-const { customError, error } = require('../services/ResponseService')
-const { verify } = require('../services/JWTService')
-const db = require('../models')
-const User = db.User
+const { customError, error } = require('../services/ResponseService');
+const { verify } = require('../services/JWTService');
+const db = require('../models');
+const User = db.User;
 
 const authenticated = async (req, res, next) => {
   if (req.headers && req.headers.authorization) {
-    var parts = req.headers.authorization.split(' ')
+    let parts = req.headers.authorization.split(' ');
     if (parts.length === 2) {
-      var scheme = parts[0]
-      var credentials = parts[1]
+      let scheme = parts[0];
+      let _token = parts[1];
       if (/^jwt$/i.test(scheme)) {
-        const _token = credentials
         return verify(_token).then(decoded => {
           return User.findOne({ where: { id: decoded.user, isDeleted: false, isActive: true } })
             .then(foundUser => {
-              if (!foundUser) return { status: 401, msg: 'Invalid token.' }
-              req.user = foundUser.toJSON()
+              if (!foundUser) return { status: 401, msg: 'Invalid token.' };
+              req.user = foundUser.toJSON();
               return { status: 200, msg: 'OK.' }
             })
         }).then(result => {
@@ -39,6 +38,6 @@ const authenticated = async (req, res, next) => {
   } else {
     return error(null, res, req, 400, 'No authorization header was found.')
   }
-}
+};
 
-module.exports = { authenticated }
+module.exports = { authenticated };
