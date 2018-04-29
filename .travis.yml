@@ -9,7 +9,7 @@ addons:
 script: npm run herokutest
 before_script:
   - psql -c 'create database mentordatabasetest;' -U postgres
-  - npm install
+  - npm install -ci
   - node_modules/.bin/sequelize db:migrate
 
 # require the branch name to be master
