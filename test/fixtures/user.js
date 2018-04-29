@@ -21,9 +21,7 @@ const userObj = {
 }
 
 const createSuperAdmin = async () => {
-  const user = userObj
-
-  const [createError, createUser] = await to(User.create(user))
+  const [createError, createUser] = await to(User.create(userObj))
   if (createError) return Promise.reject(createError)
 
   return Promise.resolve(createUser.toJSON())
