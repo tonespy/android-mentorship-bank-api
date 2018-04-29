@@ -7,13 +7,13 @@ const paystack = {
   submit_phone: 'https://api.paystack.co/charge/submit_phone',
   submit_birthday: 'https://api.paystack.co/charge/submit_birthday',
   resolve_bvn: 'https://api.paystack.co/bank/resolve_bvn/'
-};
+}
 
 const authData = {
   jwtExpiry: process.env.JWT_EXPIRY || '4h',
   jwtSecret: process.env.JWT_SECRET,
   audience: 'android-mentorship.com',
   issuer: 'Tonespy'
-};
+}
 
-module.exports = { paystack, authData };
+module.exports = { paystack, authData }

@@ -17,4 +17,4 @@ module.exports = {
     dialect: 'postgres',
     logging: false
   }
-};
+}

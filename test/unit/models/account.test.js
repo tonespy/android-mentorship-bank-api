@@ -4,58 +4,58 @@
   * User Controller Integration Test
   */
 
-const db = require('../../../api/models');
-const { describe, beforeEach, it } = require('mocha');
-const chai = require('chai');
-const should = chai.should();
-const { createAccount, getAllUserAccount, getAccountByAccountNumber } = require('../../fixtures/account');
+const db = require('../../../api/models')
+const { describe, beforeEach, it } = require('mocha')
+const chai = require('chai')
+const should = chai.should()
+const { createAccount, getAllUserAccount, getAccountByAccountNumber } = require('../../fixtures/account')
 
 describe('Account Integration Test', () => {
   beforeEach(done => {
     if (should) { }
-    let tableNames = [];
+    let tableNames = []
     Object.keys(db).forEach(modelName => {
       if (db[modelName].associate) tableNames.push(`"${db[modelName].getTableName()}"`)
-    });
+    })
 
-    const joinedString = tableNames.join(', ');
-    db.sequelize.query('TRUNCATE TABLE ' + joinedString + ' CASCADE');
+    const joinedString = tableNames.join(', ')
+    db.sequelize.query('TRUNCATE TABLE ' + joinedString + ' CASCADE')
     done()
-  });
+  })
 
   it('Should create user account', (done) => {
     createAccount()
       .then(createAccount => {
-        console.log(createAccount);
+        console.log(createAccount)
         done()
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err)
         done(err)
       })
-  });
-  
+  })
+
   it('Should get all user Accounts', (done) => {
   	getAllUserAccount()
 	    .then((accounts) => {
-	    	console.log('Accounts: ' + accounts);
+	    	console.log('Accounts: ' + accounts)
 	    	done()
 	    })
 	    .catch((err) => {
-	    	console.log(err);
+	    	console.log(err)
 	    	done(err)
 	    })
-  });
-  
+  })
+
   it('Should get account by account number', (done) => {
   	getAccountByAccountNumber()
 	    .then((account) => {
-	    	console.log('Account: ' + account);
+	    	console.log('Account: ' + account)
 	    	done()
 	    })
 	    .catch((err) => {
-	    	console.log(err);
+	    	console.log(err)
 	    	done(err)
 	    })
-  });
-});
+  })
+})
