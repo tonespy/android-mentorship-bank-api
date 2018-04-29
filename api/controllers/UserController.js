@@ -6,6 +6,8 @@
 
 const db = require('../models');
 const User = db.User;
+const Account = db.Account;
+const AccountController = require('./AccountController');
 const { customError, error, json } = require('../services/ResponseService');
 const { verifyBvn } = require('../services/PaystackService');
 const { to } = require('../services/HelperService');
@@ -82,16 +84,34 @@ const createUser = async (req, res) => {
 
   if (verifyUser.bvn) {
     const [verifyError, verifyResponse] = await to(verifyBvn(verifyUser.bvn));
-    if (verifyError || !verifyResponse) return customError(400, res, req, verifyError.error, 'Unable to verify bvn.')
+    if (verifyError || !verifyResponse) return customError(400, res, req, verifyError.error, 'Unable to verify bvn.');
     verifyUser.bvnProvided = true
   }
 
   User.create(verifyUser)
     .then(createdUser => {
       let user = createdUser.toJSON();
+
+      let data = {
+        account_number: AccountController.generateAccountNumber(),
+        user_id: user.id,
+        status: 'active'
+      };
+      
+      let message = '';
+      //Create user account on the fly.
+      Account.create(data)
+	    .then(() => {
+	    	message = 'with default account';
+	    })
+	    .catch((err) => {
+	    	console.log('Error message: ' + err.message);
+	    });
+
       delete user.password;
       delete user.bvn;
-      return json(201, res, req, 'User Created Successfully.', user)
+      console.log('User: ' + JSON.stringify(user));
+      return json(201, res, req, 'User Created Successfully ' + message + '.', user)
     })
     .catch(err => error(err, res, req, 400, 'Error creating user.'))
 };
@@ -179,6 +199,6 @@ const listUser = async (req, res) => {
   }).catch(err => {
     error(err, res, 400, 'Couldn\'t get Users.')
   })
-}
+};
 
 module.exports = { createUser, updateUser, viewUser, deleteUser, listUser };
