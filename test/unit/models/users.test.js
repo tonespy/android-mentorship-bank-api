@@ -28,11 +28,9 @@ describe('User Integration Test', () => {
   it('Should create super admin', (done) => {
     createSuperAdmin()
       .then(createdUser => {
-        console.log(createdUser)
         done()
       })
       .catch(err => {
-        console.log(err)
         done(err)
       })
   })
