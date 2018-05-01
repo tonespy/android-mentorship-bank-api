@@ -13,7 +13,8 @@ const issue = (payload, expirytime, subject) => {
     jwtid: uuid.v4(),
     subject: subject || 'jwt-auth-token'
   }
-  return jwt.sign(payload, tokenBuffer, opts)
+  const token = jwt.sign(payload, tokenBuffer, opts)
+  return token
 }
 
 const verify = (token) => {
