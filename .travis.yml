@@ -3,7 +3,6 @@ env:
   - DATABASE_TEST_URL=postgres://postgres@localhost:5432/mentordatabasetest
 sudo: required
 node_js:
-  - npm install bcrypt
   - "stable"
 addons:
   postgresql: "9.6"
