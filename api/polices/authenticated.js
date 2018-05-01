@@ -10,11 +10,12 @@ const User = db.User
 
 const authenticated = async (req, res, next) => {
   if (req.headers && req.headers.authorization) {
-    let parts = req.headers.authorization.split(' ')
+    var parts = req.headers.authorization.split(' ')
     if (parts.length === 2) {
-      let scheme = parts[0]
-      let _token = parts[1]
+      var scheme = parts[0]
+      var credentials = parts[1]
       if (/^jwt$/i.test(scheme)) {
+        const _token = credentials
         return verify(_token).then(decoded => {
           return User.findOne({ where: { id: decoded.user, isDeleted: false, isActive: true } })
             .then(foundUser => {
