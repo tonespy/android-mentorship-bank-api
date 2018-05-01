@@ -6,27 +6,74 @@
 
 const db = require('../models')
 const User = db.User
+const Account = db.Account
+const AccountController = require('./AccountController')
 const { customError, error, json } = require('../services/ResponseService')
 const { verifyBvn } = require('../services/PaystackService')
 const { to } = require('../services/HelperService')
 
 const validateObj = (data) => {
-  if (!data.phone) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { phone: 'Phone Number Is Required.' } } }
-  if (data.phone.length < 11 || data.phone.length > 11) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { phone: 'Phone Number can neither be lesser nor greater than 11.' } } }
-  if (!data.email) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { email: 'Email Is Required.' } } }
-  if (!data.passowrd) return { status: false, statusCode: 400, obj: { message: 'Invalid Attributes.', data: { password: 'Password Is Required.' } } }
+  if (!data.phone) {
+    return {
+      status: false,
+      statusCode: 400,
+      obj: {
+        message: 'Invalid Attributes.',
+        data: {
+          phone: 'Phone Number Is Required.'
+        }
+      }
+    }
+  }
+
+  if (data.phone.length < 11 || data.phone.length > 11) {
+    return {
+      status: false,
+      statusCode: 400,
+      obj: {
+        message: 'Invalid Attributes.',
+        data: {
+          phone: 'Phone Number can neither be lesser nor greater than 11.'
+        }
+      }
+    }
+  }
+  if (!data.email) {
+    return {
+      status: false,
+      statusCode: 400,
+      obj: {
+        message: 'Invalid Attributes.',
+        data: {
+          email: 'Email Is Required.'
+        }
+      }}
+  }
+  if (!data.password) {
+    return {
+      status: false,
+      statusCode: 400,
+      obj: {
+        message: 'Invalid Attributes.',
+        data: {
+          password: 'Password Is Required.'
+        }
+      }}
+  }
 
   const payload = {
     phone: data.phone,
     email: data.email,
-    password: data.passowrd,
+    password: data.password,
     username: data.phone,
     bvn: data.bvn,
     fullname: data.fullname,
     role: 'user'
   }
 
-  return { status: true, obj: payload }
+  return {
+    status: true,
+    data: payload }
 }
 
 const createUser = async (req, res) => {
@@ -34,9 +81,9 @@ const createUser = async (req, res) => {
 
   let verifyUser = validateObj(data)
 
-  if (!verifyUser.status) return customError(verifyUser.statusCode, res, req, verifyUser.obj.data, verifyUser.obj.message)
+  if (!verifyUser.status) { return customError(verifyUser.statusCode, res, req, verifyUser.obj.data, verifyUser.obj.message) }
 
-  verifyUser = verifyUser.obj
+  verifyUser = verifyUser.data
 
   if (verifyUser.bvn) {
     const [verifyError, verifyResponse] = await to(verifyBvn(verifyUser.bvn))
@@ -47,9 +94,27 @@ const createUser = async (req, res) => {
   User.create(verifyUser)
     .then(createdUser => {
       let user = createdUser.toJSON()
+
+      let data = {
+        account_number: AccountController.generateAccountNumber(),
+        user_id: user.id,
+        status: 'active'
+      }
+
+      let message = ''
+      // Create user account on the fly.
+      Account.create(data)
+        .then(() => {
+          message = 'with default account'
+        })
+        .catch((err) => {
+          console.log('Error message: ' + err.message)
+        })
+
       delete user.password
       delete user.bvn
-      return json(201, res, req, 'User Created Successfully.', user)
+      console.log('User: ' + JSON.stringify(user))
+      return json(201, res, req, 'User Created Successfully ' + message + '.', user)
     })
     .catch(err => error(err, res, req, 400, 'Error creating user.'))
 }
@@ -65,8 +130,8 @@ const updateUser = async (req, res) => {
   delete data.role
 
   User.update(data, { where: { id: id } })
-    .then(updatedUser => json(200, res, req, 'User updated successfully.'))
-    .catch(err => error(err, res, req, 400, 'User update was not successful.'))
+    .then(() => json(200, res, req, 'User updated successfully.'))
+    .catch((err) => error(err, res, req, 400, 'User update was not successful.'))
 }
 
 const viewUser = async (req, res) => {
@@ -110,8 +175,8 @@ const deleteUser = async (req, res) => {
   delete data.role
 
   User.update(data, { where: whereQuery })
-    .then(updatedUser => json(200, res, req, 'User has been deleted successfully.'))
-    .catch(err => error(err, res, req, 400, 'User delete was not successful.'))
+    .then(() => json(200, res, req, 'User has been deleted successfully.'))
+    .catch((err) => error(err, res, req, 400, 'User delete was not successful.'))
 }
 
 const listUser = async (req, res) => {

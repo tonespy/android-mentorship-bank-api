@@ -27,4 +27,4 @@ const login = async (req, res) => {
   return json(200, res, req, 'User Created Successfully.', { token: token, user: finalUser })
 }
 
-module.exports = { login }
+module.exports = login
