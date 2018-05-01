@@ -5,10 +5,10 @@
   */
 
 const db = require('../../../api/models')
-const { describe, beforeEach, it } = require('mocha')
+const { describe, beforeEach } = require('mocha')
 const chai = require('chai')
 const should = chai.should()
-const { createAccount, getAllUserAccount, getAccountByAccountNumber } = require('../../fixtures/account')
+// const { createAccount, getAllUserAccount, getAccountByAccountNumber } = require('../../fixtures/account')
 
 describe('Account Integration Test', () => {
   beforeEach(done => {
