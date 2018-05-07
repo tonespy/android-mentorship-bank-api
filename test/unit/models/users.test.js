@@ -27,8 +27,9 @@ describe('User Integration Test', () => {
 
   it('Should create super admin', (done) => {
     createSuperAdmin()
-      .then(createdUsegit
-      )
+      .then(createdUser => {
+      	done()
+      })
       .catch(err => {
         done(err)
       })

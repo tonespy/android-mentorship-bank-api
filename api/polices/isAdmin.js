@@ -3,11 +3,11 @@
   * @tonespy
   * Is Admin Policy
   */
-const { customError } = require('../services/ResponseService')
+const { customError } = require('../services/ResponseService');
 
 const isAdmin = (req, res, next) => {
-  if (req.user.role === 'admin') return next()
+  if (req.user.role === 'admin') return next();
   return customError(404, res, 'Not found.')
-}
+};
 
-module.exports = { isAdmin }
+module.exports = { isAdmin };

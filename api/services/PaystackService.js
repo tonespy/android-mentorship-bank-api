@@ -4,10 +4,10 @@
   * Paystack Service
   */
 
-const { paystack } = (process.env.NODE_ENV === 'production') ? require('../../config/env/production') : require('../../config/env/development')
-const paystackHeader = { Authorization: ['Bearer ', paystack.sk_key].join(''), 'Content-Type': 'application/json' }
-const request = require('request-promise')
-const { to } = require('./HelperService')
+const { paystack } = (process.env.NODE_ENV === 'production') ? require('../../config/env/production') : require('../../config/env/development');
+const paystackHeader = { Authorization: ['Bearer ', paystack.sk_key].join(''), 'Content-Type': 'application/json' };
+const request = require('request-promise');
+const { to } = require('./HelperService');
 
 const verifyBvn = async (bvn) => {
   let options = {
@@ -16,11 +16,11 @@ const verifyBvn = async (bvn) => {
     headers: paystackHeader,
     json: true,
     resolveWithFullResponse: true
-  }
+  };
 
-  const [verifyError, verifyResponse] = await to(request(options))
+  const [verifyError, verifyResponse] = await to(request(options));
 
   return (verifyError) ? Promise.reject(verifyError) : Promise.resolve(verifyResponse.body)
-}
+};
 
-module.exports = { verifyBvn }
+module.exports = { verifyBvn };

@@ -3,11 +3,11 @@
   * @tonespy
   * User Fixtures
   */
-const Chance = require('chance')
-const chance = new Chance()
-const { to } = require('../../api/services/HelperService')
-const db = require('../../api/models')
-const User = db.User
+const Chance = require('chance');
+const chance = new Chance();
+const { to } = require('../../api/services/HelperService');
+const db = require('../../api/models');
+const User = db.User;
 
 const userObj = {
   fullname: chance.name({ middle: true }),
@@ -18,15 +18,14 @@ const userObj = {
   role: 'admin',
   bvn: chance.ssn({ dashes: false }),
   bvnProvided: true
-}
+};
 
 const createSuperAdmin = async () => {
-  const user = userObj
 
-  const [createError, createUser] = await to(User.create(user))
-  if (createError) return Promise.reject(createError)
-
+  const [createError, createUser] = await to(User.create(userObj));
+  if (createError) return Promise.reject(createError);
+	
   return Promise.resolve(createUser.toJSON())
-}
+};
 
-module.exports = { userObj, createSuperAdmin }
+module.exports = { userObj, createSuperAdmin };
