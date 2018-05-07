@@ -73,7 +73,6 @@ const AccountController = {
 
         Account.create(data)
             .then((createdAccount) => {
-                console.log('I got inside account');
                 return json(201, res, req, 'Account created successfully.', createdAccount.toJSON());
             })
             .catch((err) => {
@@ -108,7 +107,6 @@ const AccountController = {
 	    	return json(200, res, req, 'Account found', userAccount);
 	    })
 	    .catch((err) => {
-	    	console.log('ErrorMessage: ' + err.message);
 		    error(err, res, req, 400, 'Couldn\'t fetch user account due to error =>  ' + err.message)
 	    })
     },

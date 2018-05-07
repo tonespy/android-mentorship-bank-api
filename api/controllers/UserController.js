@@ -105,12 +105,12 @@ const createUser = async (req, res) => {
 	    	message = 'with default account';
 	    })
 	    .catch((err) => {
-	    	console.log('Error message: ' + err.message);
+	    	message = 'without default account';
+		    error(err, res, req, 400, 'Error creating default account for user.')
 	    });
 
       delete user.password;
       delete user.bvn;
-      console.log('User: ' + JSON.stringify(user));
       return json(201, res, req, 'User Created Successfully ' + message + '.', user)
     })
     .catch(err => error(err, res, req, 400, 'Error creating user.'))

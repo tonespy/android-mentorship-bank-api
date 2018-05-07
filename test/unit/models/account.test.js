@@ -26,11 +26,9 @@ describe('Account Integration Test', () => {
   it('Should create user account', (done) => {
     createAccount()
       .then(createAccount => {
-        console.log(createAccount);
         done()
       })
       .catch((err) => {
-        console.log(err);
         done(err)
       })
   });
@@ -38,11 +36,9 @@ describe('Account Integration Test', () => {
   it('Should get all user Accounts', (done) => {
   	getAllUserAccount()
 	    .then((accounts) => {
-	    	console.log('Accounts: ' + accounts);
 	    	done()
 	    })
 	    .catch((err) => {
-	    	console.log(err);
 	    	done(err)
 	    })
   });
@@ -50,11 +46,9 @@ describe('Account Integration Test', () => {
   it('Should get account by account number', (done) => {
   	getAccountByAccountNumber()
 	    .then((account) => {
-	    	console.log('Account: ' + account);
 	    	done()
 	    })
 	    .catch((err) => {
-	    	console.log(err);
 	    	done(err)
 	    })
   });
