@@ -1,16 +1,16 @@
 language: node_js
 env:
- - DATABASE_TEST_URL=postgres://postgres@localhost:5432/mentordatabasetest
+  - DATABASE_TEST_URL=postgres://postgres@localhost:5432/mentordatabasetest
 sudo: required
 node_js:
- - "stable"
+  - "stable"
 addons:
- postgresql: "9.6"
+  postgresql: "9.6"
 script: npm run herokutest
 before_script:
- - psql -c 'create database mentordatabasetest;' -U postgres
- - npm install
- - node_modules/.bin/sequelize db:migrate
+  - psql -c 'create database mentordatabasetest;' -U postgres
+  - npm install
+  - node_modules/.bin/sequelize db:migrate
 
 # require the branch name to be master
 if: branch IN (master, dev)
