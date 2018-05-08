@@ -23,7 +23,7 @@ const userAdminObj = {
 const userObj = {
   fullname: chance.name(),
   username: chance.twitter(),
-  phone: chance.phone({ formatted: false}),
+  phone: chance.phone({ formatted: false }),
   email: 'testuser@androidmentorship.com',
   password: 'password',
   role: 'user',

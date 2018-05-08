@@ -60,8 +60,7 @@ const AccountController = {
   },
 
   createAccount: (req, res) => {
-  	let userId = req.params.user_id
-
+    let userId = req.params.user_id
     let data = {
       account_number: AccountController.generateAccountNumber(),
       user_id: userId,
@@ -91,42 +90,41 @@ const AccountController = {
     if (!verifyAccount.status) { return customError(verifyAccount.statusCode, res, req, verifyAccount.obj.data, verifyAccount.obj.message) }
 
     Account.findOne({
-	    where: {
-	    	account_number: verifyAccount.accountNumber,
-		    status: 'active'
-	    }
+      where: {
+        account_number: verifyAccount.accountNumber,
+        status: 'active'
+      }
     })
-	    .then((userAccount) => {
-	    	if (!userAccount) { return json(200, res, req, 'Account does not exist') }
-
-	    	return json(200, res, req, 'Account found', userAccount)
-	    })
-	    .catch((err) => {
-		    error(err, res, req, 400, 'Couldn\'t fetch user account due to error =>  ' + err.message)
-	    })
+      .then((userAccount) => {
+        if (!userAccount) {
+          return json(200, res, req, 'Account does not exist')
+        }
+        return json(200, res, req, 'Account found', userAccount)
+      })
+      .catch((err) => {
+        error(err, res, req, 400, 'Couldn\'t fetch user account due to error =>  ' + err.message)
+      })
   },
 
   /**
-	 * Get all user accounts by user ID.
-	 * @param req
-	 * @param res
-	 */
+   * Get all user accounts by user ID.
+   * @param req
+   * @param res
+   */
   getAllUsersAccounts: (req, res) => {
-    	let userId = req.params.user_id
-
-    	Account.findAll({
-		    where: {
-			    user_id: userId,
-			    status: 'active'
-		    }})
-		    .then((userAccounts) => {
-		    	if (!userAccounts) { return json(200, res, req, 'No account found for this user') }
-
-		    	return json(200, res, req, 'User accounts found', userAccounts)
-		    })
-		    .catch((err) => {
-		    	error(err, res, req, 400, 'User accounts not found. Only a user can do this.')
-		    })
+    let userId = req.params.user_id
+    Account.findAll({
+      where: {
+        user_id: userId,
+        status: 'active'
+      }})
+      .then((userAccounts) => {
+        if (!userAccounts) { return json(200, res, req, 'No account found for this user') }
+        return json(200, res, req, 'User accounts found', userAccounts)
+      })
+      .catch((err) => {
+        error(err, res, req, 400, 'User accounts not found. Only a user can do this.')
+      })
   }
 }
 

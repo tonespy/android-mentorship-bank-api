@@ -34,22 +34,22 @@ describe('Account Integration Test', () => {
   })
 
   it('Should get all user Accounts', (done) => {
-  	getAllUserAccount()
-	    .then((accounts) => {
-	    	done()
-	    })
-	    .catch((err) => {
-	    	done(err)
-	    })
+    getAllUserAccount()
+      .then((accounts) => {
+        done()
+      })
+      .catch((err) => {
+        done(err)
+      })
   })
 
   it('Should get account by account number', (done) => {
-  	getAccountByAccountNumber()
-	    .then((account) => {
-	    	done()
-	    })
-	    .catch((err) => {
-	    	done(err)
-	    })
+    getAccountByAccountNumber()
+      .then((account) => {
+        done()
+      })
+      .catch((err) => {
+        done(err)
+      })
   })
 })

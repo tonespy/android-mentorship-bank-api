@@ -23,7 +23,7 @@ const createAccount = async () => {
 
       if (createError) { return Promise.reject(createError) }
       return Promise.resolve(createAcc)
-    }).catch((err) => {})
+    })
 }
 
 const getAllUserAccount = async () => {
@@ -36,10 +36,12 @@ const getAllUserAccount = async () => {
 
       const [getAllUserAccountError, getAllUserAccount] = await to(Account.create(getAllUserAccountObj))
 
-      if (getAllUserAccountError) { return Promise.reject(getAllUserAccountError) }
+      if (getAllUserAccountError) {
+        return Promise.reject(getAllUserAccountError)
+      }
 
       return Promise.resolve(getAllUserAccount)
-    }).catch((err) => {})
+    })
 }
 
 const getAccountByAccountNumber = async () => {

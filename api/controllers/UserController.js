@@ -104,13 +104,13 @@ const createUser = async (req, res) => {
       let message = ''
       // Create user account on the fly.
       Account.create(data)
-	    .then(() => {
-	    	message = 'with default account'
-	    })
-	    .catch((err) => {
-	    	message = 'without default account'
-		    error(err, res, req, 400, 'Error creating default account for user.')
-	    })
+        .then(() => {
+          message = 'with default account'
+        })
+        .catch((err) => {
+          message = 'without default account'
+          error(err, res, req, 400, 'Error creating default account for user.')
+        })
 
       delete user.password
       delete user.bvn
