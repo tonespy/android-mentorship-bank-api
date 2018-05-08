@@ -14,6 +14,11 @@ const { customError, error, json } = require('../services/ResponseService')
  * @param accountNumber
  */
 const AccountController = {
+  /**
+     * Validate user account number
+     * @param accountNumber
+     * @returns {*}
+     */
   validateAccountNumber: (accountNumber) => {
     if (!accountNumber) {
       return {
@@ -64,7 +69,6 @@ const AccountController = {
 
     Account.create(data)
       .then((createdAccount) => {
-        console.log('I got inside account')
         return json(201, res, req, 'Account created successfully.', createdAccount.toJSON())
       })
       .catch((err) => {
@@ -72,6 +76,11 @@ const AccountController = {
       })
   },
 
+  /**
+     * Get user account details with user account number.
+     * @param req
+     * @param res
+     */
   getAccountByAccountNumber: (req, res) => {
     const account = req.params.account_number
 
@@ -85,17 +94,25 @@ const AccountController = {
         account_number: verifyAccount.accountNumber,
         status: 'active'
       }
-    }).then((userAccount) => {
-      if (!userAccount) { return json(200, res, req, 'Account does not exist') }
-      return json(200, res, req, 'Account found', userAccount)
-    }).catch((err) => {
-      return error(err, res, req, 400, 'Couldn\'t fetch user account due to error =>  ' + err.message)
     })
+      .then((userAccount) => {
+        if (!userAccount) {
+          return json(200, res, req, 'Account does not exist')
+        }
+        return json(200, res, req, 'Account found', userAccount)
+      })
+      .catch((err) => {
+        error(err, res, req, 400, 'Couldn\'t fetch user account due to error =>  ' + err.message)
+      })
   },
 
+  /**
+   * Get all user accounts by user ID.
+   * @param req
+   * @param res
+   */
   getAllUsersAccounts: (req, res) => {
     let userId = req.params.user_id
-
     Account.findAll({
       where: {
         user_id: userId,
@@ -103,7 +120,6 @@ const AccountController = {
       }})
       .then((userAccounts) => {
         if (!userAccounts) { return json(200, res, req, 'No account found for this user') }
-
         return json(200, res, req, 'User accounts found', userAccounts)
       })
       .catch((err) => {

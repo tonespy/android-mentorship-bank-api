@@ -6,43 +6,55 @@
 const Chance = require('chance')
 const chance = new Chance()
 const { to } = require('../../api/services/HelperService')
+const { createUser } = require('./user')
 const db = require('../../api/models')
 const Account = db.Account
 
-const createAccountObj = {
-  account_number: 5839119194 + '',
-  user_id: 1,
-  status: 'active'
-}
-
 const createAccount = async () => {
-  const [createError, createAcc] = await to(Account.create(createAccountObj))
+  createUser()
+    .then(async (createdUser) => {
+      const createAccountObj = {
+        account_number: 5839119194 + '',
+        user_id: createdUser.id``,
+        status: 'active'
+      }
 
-  if (createError) { return Promise.reject(createError) }
-  return Promise.resolve(createAcc)
-}
+      const [createError, createAcc] = await to(Account.create(createAccountObj))
 
-const getAllUserAccountObj = {
-  user_id: 1,
-  status: 'active'
+      if (createError) { return Promise.reject(createError) }
+      return Promise.resolve(createAcc)
+    })
+    .catch((err) => {
+      console.log('Error Message: ' + err.message)
+    })
 }
 
 const getAllUserAccount = async () => {
-  const [getAllUserAccountError, getAllUserAccount] = await to(Account.findAll(
-    {
-      where: getAllUserAccountObj
-    }
-  ))
-  if (getAllUserAccountError) { return Promise.reject(getAllUserAccountError) }
+  createUser()
+    .then(async (createdUser) => {
+      const getAllUserAccountObj = {
+        user_id: createdUser.id,
+        status: 'active'
+      }
 
-  return Promise.resolve(getAllUserAccount)
+      const [getAllUserAccountError, getAllUserAccount] = await to(Account.create(getAllUserAccountObj))
+
+      if (getAllUserAccountError) {
+        return Promise.reject(getAllUserAccountError)
+      }
+
+      return Promise.resolve(getAllUserAccount)
+    })
+    .catch((err) => {
+      console.log('Error Message: ' + err.message)
+    })
 }
 
 const getAccountByAccountNumber = async () => {
   const [getAccountByAccountNumberError, getAccountByAccNumber] = await to(Account.findOne(
     {
       where: {
-        account_number: chance.phone() + '',
+        account_number: chance.phone({formatted: false}) + '',
         status: 'active'
       }
     }
