@@ -12,9 +12,9 @@ const issue = (payload, expirytime, subject) => {
     issuer: issuer,
     jwtid: uuid.v4(),
     subject: subject || 'jwt-auth-token'
-  };
-  return jwt.sign(payload, tokenBuffer, opts);
-};
+  }
+  return jwt.sign(payload, tokenBuffer, opts)
+}
 
 const verify = (token) => {
   return new Promise(function (resolve, reject) {
