@@ -24,6 +24,9 @@ const createAccount = async () => {
       if (createError) { return Promise.reject(createError) }
       return Promise.resolve(createAcc)
     })
+    .catch((err) => {
+      console.log('Error Message: ' + err.message)
+    })
 }
 
 const getAllUserAccount = async () => {
@@ -41,6 +44,9 @@ const getAllUserAccount = async () => {
       }
 
       return Promise.resolve(getAllUserAccount)
+    })
+    .catch((err) => {
+      console.log('Error Message: ' + err.message)
     })
 }
 
