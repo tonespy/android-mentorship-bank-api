@@ -32,7 +32,7 @@ And a random generator module is being used also to make the tests params dynami
 
 [chance](https://www.npmjs.com/package/chance)
 
-Unit tests are being written for each of the endpoints
+Unit test was written for each of the endpoints
 
 
 
@@ -58,7 +58,6 @@ The mentorship is being co-facilitated by:
 
 alongside [Damilola Akapo](https://github.com/helios66)
 
-## Project Setup
 
 ### Setup Node.js 
 If this is your first time encountering **Node.js**, please follow [the instructions](https://nodejs.org/en/download/package-manager/)
@@ -72,6 +71,22 @@ git clone <repo-url>
 # Run this in the project's root directory 
 npm install
 ```
+
+## Project Setup
+_____________________________________________________________________________________________________________________________________________
+```
+To run this project locally, run `node -v` to verify that you have a 8.* node version.
+If not update your node version to 8.* or above
+
+Also ensure that your node is es6 compatible or else :smiling_imp:
+
+If you have a node version less than this, the project might not get started on you machine due to the project configuration
+
+Also ensure that you have the latest version of node module bcrypt(https://www.npmjs.com/package/bcrypt)
+
+Finally :grin: to start this project run `npm start` and you're good to go.
+```
+
 
 ### Setup Postgres
 Quick Setup For Mac Users:
