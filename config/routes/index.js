@@ -5,7 +5,7 @@
   */
 
 const { createUser, updateUser, viewUser, deleteUser, listUser } = require('../../api/controllers/UserController')
-const login = require('../../api/controllers/AuthController')
+const { login } = require('../../api/controllers/AuthController')
 const { authenticated } = require('../../api/polices/authenticated')
 const { isAdmin } = require('../../api/polices/isAdmin')
 const account = require('../../api/controllers/AccountController')
