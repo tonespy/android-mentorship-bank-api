@@ -78,7 +78,7 @@ ________________________________________________________________________________
 To run this project locally, run `node -v` to verify that you have a 8.* node version.
 If not update your node version to 8.* or above
 
-Also ensure that your node is es6 compatible or else :smiling_imp:
+Also ensure that your node is es6 compatible
 
 If you have a node version less than this, the project might not get started on you machine due to the project configuration
 
