@@ -94,6 +94,29 @@ Utilize [Postico Setup Instruction](https://eggerapps.at/postico/docs/v1.0.3/ins
 
 Or utilize [CodeMentor Guide](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
 
+##### Quick Setup for Ubuntu Users
+###### Install postgress
+Run the following commands
+
+`sudo apt-get update` //To refresh your local package index
+`sudo apt-get install postgresql postgresql-contrib` //Install postgress
+
+###### Now, over to how to use it:
+The installation procedure created a user account called `postgres` that is associated with the default Postgres role
+You can log into that default account by running `sudo -i -u postgres` in your terminal
+
+You can then access Postgres prompt by typing `psql`
+
+###### Create a new postgres db on your local
+Create a postgres db that you will run your migrations the existing tables in the project to.
+
+You can create the db with this command `createdb dbname` 
+P.S: You must be logged in as a user in postgres server
+
+You can then run the Squelize migrations with `node_modules/.bin/sequelize db:migrate` and voila, you'll see the tables in your db
+
+Cheers!!!
+
 ### Environmental Variable
 ```
 # Postgres url in the format "postgres://username:password@address/database_name"
