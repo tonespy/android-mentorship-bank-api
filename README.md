@@ -46,12 +46,55 @@ The mentorship is being co-facilitated by:
 
 [Oluwapelumi Olaoye](https://github.com/OluwapelZ)
 
-alongside Akapo Damilola
+alongside [Damilola Akapo](https://github.com/helios66)
+
+## Project Setup
+
+### Setup Node.js 
+If this is your first time encountering **Node.js**, please follow [the instructions](https://nodejs.org/en/download/package-manager/)
+
+After installing Node, run the following commands to download and install this starter kit:
+
+```
+# Clone the repository
+git clone <repo-url>
+
+# Run this in the project's root directory 
+npm install
+```
+
+### Setup Postgres
+Quick Setup For Mac Users:
+Utilize [Postico Setup Instruction](https://eggerapps.at/postico/docs/v1.0.3/install-postgresapp.html)
+
+Or utilize [CodeMentor Guide](https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb)
+
+### Environmental Variable
+```
+# Postgres url in the format "postgres://username:password@address/database_name"
+# E.g: postgres://postgres:password@127.0.0.1/mentor-bank-test-db
+# Note: If there is no password set for the user, do this instead:
+# E.g: postgres://postgres@127.0.0.1/mentor-bank-test-db
+MENTOR_POSTGRES_TEST
+
+# Create a Paystack account and get your API Keys
+MENTOR_PAYSTACK_DEBUG_SK
+MENTOR_PAYSTACK_DEBUG_PK
+
+# Node environment:
+# Always set it to development
+NODE_ENV=development
+
+# Provide a randomly generated JWT Secret, and add it to your environmental variable
+JWT_SECRET
+```
+
+
 
 #### Project Credits
 
+##### Akapo Damilola
 ##### Oladeji Abubakar
-
 ##### Oluwapelumi Olaoye
 
 
